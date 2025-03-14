@@ -49,6 +49,7 @@ coverage.xml
 # Output
 *.out
 *.txt
+!requirements.txt
 
 # Sphinx documentation
 docs/_build/
