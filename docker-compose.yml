@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  g-retriever:
+    image: g-retriever-gpu
+    container_name: otavio-g-retriever
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      - ./dataset:/workspace/dataset
+      - ./output:/workspace/output
+    command: tail -f /dev/null
