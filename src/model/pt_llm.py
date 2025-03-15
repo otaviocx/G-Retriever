@@ -31,7 +31,7 @@ class PromptTuningLLM(torch.nn.Module):
 
         print('Loading LLAMA')
         kwargs = {
-            "max_memory": {0: '80GiB', 1: '80GiB'},
+            "max_memory": {i: f'{size}GiB' for i, size in enumerate(args.max_memory)},
             "device_map": "auto",
             "revision": "main",
         }
