@@ -168,6 +168,10 @@ class GraphLLM(torch.nn.Module):
                 labels=label_input_ids,
             )
 
+        # Clean up memory after execution
+        del inputs_embeds, attention_mask, label_input_ids, batch_inputs_embeds, batch_attention_mask, batch_label_input_ids
+        torch.cuda.empty_cache()
+
         return outputs.loss
 
     def inference(self, samples):
