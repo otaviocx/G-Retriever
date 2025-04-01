@@ -31,7 +31,7 @@ class GraphLLM(torch.nn.Module):
 
         print('Loading LLAMA')
         kwargs = {
-            "max_memory": {0: '80GiB', 1: '80GiB'},
+            "max_memory": {i: f'{size}GiB' for i, size in enumerate(args.max_memory)},
             "device_map": "auto",
             "revision": "main",
         }
@@ -167,6 +167,10 @@ class GraphLLM(torch.nn.Module):
                 return_dict=True,
                 labels=label_input_ids,
             )
+
+        # Clean up memory after execution
+        del inputs_embeds, attention_mask, label_input_ids, batch_inputs_embeds, batch_attention_mask, batch_label_input_ids
+        torch.cuda.empty_cache()
 
         return outputs.loss
 
